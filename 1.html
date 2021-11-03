@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bulb</title>
+  </head>
+  <body>
+    <style>
+      .red {
+        color: red;
+      }
+    </style>
+    <input type="text" name="name" id="name_input" value="Xxxx" />
+    <script>
+      name_input.oninput = function () {
+        const isChanged = this.value != this.getAttribute("value");
+        this.classList.toggle("red", isChanged);
+      };
+    </script>
+  </body>
+</html>

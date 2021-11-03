@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bulb</title>
+  </head>
+  <body>
+    <script>
+      const get = (url) =>
+        new Promise((resolve, reject) => {
+          const xhr = new XMLHttpRequest();
+          xhr.open("GET", url);
+          xhr.onload = () => {
+            try {
+              if (xhr.status === 200) {
+                resolve(xhr.response);
+              } else {
+                reject(new Error(`Error ${xhr.status}: ${xhr.statusText}`));
+              }
+            } catch (e) {
+              reject(e);
+            }
+          };
+          xhr.send();
+        });
+
+      let firstData, secondData;
+
+      get("/example/endpoint=1")
+        .then((response) => {
+          firstData = response;
+          return get("/example/endpoint=2");
+        })
+        .then((response) => {
+          secondData = response;
+          console.log("All data received");
+        });
+    </script>
+  </body>
+</html>
